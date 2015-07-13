@@ -46,14 +46,17 @@ public class ThumbnailControllerImpl implements ThumbnailController {
 		System.out.println("post");
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("Resultat");
+		
 
 		if (result.hasErrors()) {
 			System.out.println("if");
+			model.setViewName("index");
+			model.addObject("message", "Problème de formulaire");
 			return model;
 		}
 		else{
 			System.out.println("else");
+			model.setViewName("Resultat");
 			List<String> imageList;
 			if(thumbnailRequest.getLimit()>0){
 				imageList = thumbnailService.processImages(thumbnailRequest.getWidth(), thumbnailRequest.getHeight(), thumbnailRequest.getLimit());

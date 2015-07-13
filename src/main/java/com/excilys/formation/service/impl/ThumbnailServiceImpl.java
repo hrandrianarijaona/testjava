@@ -159,6 +159,7 @@ public class ThumbnailServiceImpl implements ThumbnailService {
 					try {
 						bufferedImage = resizeImage(ImageIO.read(new File(root + "/" + content)), width, height, BufferedImage.TYPE_INT_ARGB);
 						newImagePath = thumbnailsDirValue + content;
+						System.out.println("lien nouvelle image: " + newImagePath);
 						ImageIO.write(bufferedImage, "jpg", new File(newImagePath)); 
 						imagesPath.add(newImagePath);
 					} catch (IOException e) {

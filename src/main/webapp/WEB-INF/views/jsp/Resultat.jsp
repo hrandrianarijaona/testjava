@@ -11,11 +11,17 @@
 	<div align="center">
 		<h2>Thumbnail generated:</h2>
 
-		<c:forTokens items="${imageList}" delims="," var="name">
-			<c:out value="${name}" />
-			<p>
-		</c:forTokens>
+		<fieldset>
+			<c:forTokens items="${imageList}" delims="," var="name">
+				<p>
+					<img alt="${name}" src="${name}">
+				</p>
+				<p>
+					<c:out value="${name}" />
+				</p>
 
+			</c:forTokens>
+		</fieldset>
 	</div>
 </body>
 </html>
