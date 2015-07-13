@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div align="center">
-		<h2>Thumbnail generated:</h2>
+		<h2>Thumbnail generated ${imageList.length} items:</h2>
 
 		<fieldset>
 			<c:forTokens items="${imageList}" delims="," var="name">

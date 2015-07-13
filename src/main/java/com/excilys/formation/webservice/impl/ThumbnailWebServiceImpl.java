@@ -11,6 +11,13 @@ import javax.ws.rs.PathParam;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.excilys.formation.dto.ThumbnailResponse;
 import com.excilys.formation.model.Operation;
@@ -18,7 +25,8 @@ import com.excilys.formation.service.OperationService;
 import com.excilys.formation.service.ThumbnailService;
 import com.excilys.formation.webservice.ThumbnailWebService;
 
-@Path("/thumbnails")
+@Controller
+@RequestMapping(value = "/thumbnails")
 public class ThumbnailWebServiceImpl implements ThumbnailWebService {
 
 	@Autowired
@@ -27,10 +35,10 @@ public class ThumbnailWebServiceImpl implements ThumbnailWebService {
 	@Autowired
 	OperationService operationService;
 	
-	@POST
-	@Path("/{width}/{height}")
+	@RequestMapping(value = "/{width}/{height}", method = RequestMethod.POST)
+	@ResponseBody
 	@Override
-	public ThumbnailResponse createThumbnails(@PathParam("width") int width, @PathParam("height") int height) {
+	public ThumbnailResponse createThumbnails(@PathVariable int width, @PathVariable int height) {
 		// TODO Auto-generated method stub
 		List<String> images = new ArrayList<String>(thumbnailService.processImages(width, height));
 		ThumbnailResponse response = new ThumbnailResponse(images.size(), images);
@@ -43,10 +51,10 @@ public class ThumbnailWebServiceImpl implements ThumbnailWebService {
 		return response;
 	}
 
-	@POST
-	@Path("/{width}/{height}/{limit}")
+	@RequestMapping(value = "/{width}/{height}/{limit}", method = RequestMethod.POST)
+	@ResponseBody
 	@Override
-	public ThumbnailResponse createThumbnails(@PathParam("width") int width, @PathParam("height") int height, @PathParam("limit") int limit) {
+	public ThumbnailResponse createThumbnails(@PathVariable int width, @PathVariable int height, @PathVariable int limit) {
 		// TODO Auto-generated method stub
 		List<String> images = new ArrayList<String>(thumbnailService.processImages(width, height, limit));
 		ThumbnailResponse response = new ThumbnailResponse(images.size(), images);
@@ -59,10 +67,10 @@ public class ThumbnailWebServiceImpl implements ThumbnailWebService {
 		return response;
 	}
 
-	@GET
-	@Path("/{filename}")
+	@RequestMapping(value = "/{filename}", method = RequestMethod.GET)
+	@ResponseBody
 	@Override
-	public byte[] getThumbnail(@PathParam("filename") String fileName) {
+	public byte[] getThumbnail(@PathVariable("filename") String fileName) {
 		// TODO Auto-generated method stub
 		return thumbnailService.getThumbnail(fileName);
 	}
